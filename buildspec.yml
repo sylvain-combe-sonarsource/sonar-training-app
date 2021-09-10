@@ -1,0 +1,19 @@
+version: 2.0
+env:
+  secrets-manager:
+    SONAR_LOGIN: sonartoken
+    SONAR_HOSTURL: sonarhost
+phases:
+  install:
+    runtime-versions:
+      java: openjdk11
+  pre_build:
+    commands:
+      - apt-get update
+      - apt-get install -y jq
+      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472.zip
+      - unzip ./sonar-scanner-cli-4.6.2.2472.zip
+      - export PATH=$PATH:/sonar-scanner-4.6.2.2472-linux/bin/
+  build:
+    commands:
+      - sonar-scanner -Dsonar.login=$SONAR_LOGIN -Dsonar.host.url=$SONAR_HOST_URL
