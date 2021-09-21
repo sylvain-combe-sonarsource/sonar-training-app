@@ -27,4 +27,4 @@ phases:
     commands:
 #      - sonar-scanner -Dsonar.login=$SONAR_LOGIN -Dsonar.host.url=$SONAR_HOST_URL -X
       - echo "doing nothing with ${SQ_ANALYSIS_PARAMS}"
-      - echo "CODEBUILD_SOURCE_VERSION: ${CODEBUILD_SOURCE_VERSION}"
+      - echo "CODEBUILD_SOURCE_VERSION ${CODEBUILD_SOURCE_VERSION}"
