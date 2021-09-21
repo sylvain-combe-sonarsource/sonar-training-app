@@ -10,12 +10,10 @@ phases:
       java: corretto11
   pre_build:
     commands:
-#      - apt-get update
-#      - apt-get install -y jq
-      - echo "CODEBUILD_SOURCE_VERSION ${CODEBUILD_SOURCE_VERSION}"
-      - echo "CODEBUILD_WEBHOOK_TRIGGER ${CODEBUILD_WEBHOOK_TRIGGER}"
-      - echo "CODEBUILD_WEBHOOK_BASE_REF ${CODEBUILD_WEBHOOK_BASE_REF}"
-      - echo "CODEBUILD_WEBHOOK_HEAD_REF ${CODEBUILD_WEBHOOK_HEAD_REF}"
+      - echo "CODEBUILD_SOURCE_VERSION -> ${CODEBUILD_SOURCE_VERSION}"
+      - echo "CODEBUILD_WEBHOOK_TRIGGER -> ${CODEBUILD_WEBHOOK_TRIGGER}"
+      - echo "CODEBUILD_WEBHOOK_BASE_REF -> ${CODEBUILD_WEBHOOK_BASE_REF}"
+      - echo "CODEBUILD_WEBHOOK_HEAD_REF -> ${CODEBUILD_WEBHOOK_HEAD_REF}"
       - |-
          if [[ ${CODEBUILD_WEBHOOK_TRIGGER} == 'pr/'* ]] ; then
             export SQ_ANALYSIS_PARAMS="-Dsonar.pullrequest.key=${CODEBUILD_WEBHOOK_TRIGGER##*/} \
@@ -29,6 +27,7 @@ phases:
               export SQ_ANALYSIS_PARAMS="-Dsonar.branch.name=${CODEBUILD_WEBHOOK_TRIGGER##branch/}"
            fi
          fi
+      # get the scanner
       - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472.zip
       - unzip ./sonar-scanner-cli-4.6.2.2472.zip
       - export PATH=$PATH:$PWD/sonar-scanner-4.6.2.2472/bin/
