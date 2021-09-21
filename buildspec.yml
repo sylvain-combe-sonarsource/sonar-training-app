@@ -17,13 +17,13 @@ phases:
       - export PATH=$PATH:$PWD/sonar-scanner-4.6.2.2472/bin/
       - |-
          if [[ CODEBUILD_SOURCE_VERSION == "PR/"* ]] ; then
-            SQ_ANALYSIS_PARAMS = "-Dsonar.pullrequest.key=${env.CHANGE_ID}"
-            echo "$SQ_ANALYSIS_PARAMS"
+            export SQ_ANALYSIS_PARAMS="-Dsonar.pullrequest.key=${CODEBUILD_SOURCE_VERSION}"
+            echo "${SQ_ANALYSIS_PARAMS}"
          else
-           echo "$CODEBUILD_SOURCE_VERSION"
+           echo "${CODEBUILD_SOURCE_VERSION}"
          fi         
 
   build:
     commands:
 #      - sonar-scanner -Dsonar.login=$SONAR_LOGIN -Dsonar.host.url=$SONAR_HOST_URL -X
-      - echo "doing nothing"
+      - echo "doing nothing with ${SQ_ANALYSIS_PARAMS}"
