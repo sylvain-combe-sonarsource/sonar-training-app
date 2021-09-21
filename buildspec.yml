@@ -13,7 +13,7 @@ phases:
       - apt-get install -y jq
       - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472.zip
       - unzip ./sonar-scanner-cli-4.6.2.2472.zip
-      - export PATH=$PATH:/sonar-scanner-4.6.2.2472/bin/
+      - export PATH=$PATH:$PWD/sonar-scanner-4.6.2.2472/bin/
   build:
     commands:
       - sonar-scanner -Dsonar.login=$SONAR_LOGIN -Dsonar.host.url=$SONAR_HOST_URL -X
