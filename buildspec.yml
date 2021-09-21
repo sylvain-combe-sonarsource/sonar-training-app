@@ -16,4 +16,4 @@ phases:
       - export PATH=$PATH:/sonar-scanner-4.6.2.2472-linux/bin/
   build:
     commands:
-      - sonar-scanner -Dsonar.login=$SONAR_LOGIN -Dsonar.host.url=$SONAR_HOST_URL
+      - sonar-scanner -Dsonar.login=$SONAR_LOGIN -Dsonar.host.url=$SONAR_HOST_URL -X
