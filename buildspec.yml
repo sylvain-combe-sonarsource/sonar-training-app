@@ -12,9 +12,6 @@ phases:
     commands:
 #      - apt-get update
 #      - apt-get install -y jq
-      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472.zip
-      - unzip ./sonar-scanner-cli-4.6.2.2472.zip
-      - export PATH=$PATH:$PWD/sonar-scanner-4.6.2.2472/bin/
       - echo "CODEBUILD_SOURCE_VERSION ${CODEBUILD_SOURCE_VERSION}"
       - echo "CODEBUILD_WEBHOOK_TRIGGER ${CODEBUILD_WEBHOOK_TRIGGER}"
       - echo "CODEBUILD_WEBHOOK_BASE_REF ${CODEBUILD_WEBHOOK_BASE_REF}"
@@ -32,6 +29,9 @@ phases:
               export SQ_ANALYSIS_PARAMS="-Dsonar.branch.name=${CODEBUILD_WEBHOOK_TRIGGER##branch/}"
            fi
          fi
+      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472.zip
+      - unzip ./sonar-scanner-cli-4.6.2.2472.zip
+      - export PATH=$PATH:$PWD/sonar-scanner-4.6.2.2472/bin/
 
   build:
     commands:
