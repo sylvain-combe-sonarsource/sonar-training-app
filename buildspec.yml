@@ -25,7 +25,11 @@ phases:
                                        -Dsonar.pullrequest.branch=${CODEBUILD_WEBHOOK_HEAD_REF##refs/heads/} \
                                        -Dsonar.pullrequest.base=${CODEBUILD_WEBHOOK_BASE_REF##refs/heads/}"
          else
-           export SQ_ANALYSIS_PARAMS="-Dsonar.branch.name=${CODEBUILD_WEBHOOK_TRIGGER##branch/}"
+           if [[ ${CODEBUILD_WEBHOOK_TRIGGER##branch/} != 'main' ; then # compensate codebuild source filters limitations with your own here
+             exit 1 # we could position an exit variable for the build to avoid a build failure
+           else
+              export SQ_ANALYSIS_PARAMS="-Dsonar.branch.name=${CODEBUILD_WEBHOOK_TRIGGER##branch/}"
+           fi
          fi
 
   build:
