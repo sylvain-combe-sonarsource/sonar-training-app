@@ -35,5 +35,5 @@ phases:
   build:
     commands:
       - echo "SQ_ANALYSIS_PARAMS -> ${SQ_ANALYSIS_PARAMS}"
-      - sonar-scanner -Dsonar.login=$SONAR_LOGIN -Dsonar.host.url=$SONAR_HOST_URL -X
+      - sonar-scanner -Dsonar.login=$SONAR_LOGIN -Dsonar.host.url=$SONAR_HOST_URL -X $SQ_ANALYSIS_PARAMS
 
