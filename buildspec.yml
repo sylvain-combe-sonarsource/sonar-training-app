@@ -20,10 +20,10 @@ phases:
       - echo "CODEBUILD_WEBHOOK_BASE_REF ${CODEBUILD_WEBHOOK_BASE_REF}"
       - echo "CODEBUILD_WEBHOOK_HEAD_REF ${CODEBUILD_WEBHOOK_HEAD_REF}"
       - |-
-         if [[ CODEBUILD_WEBHOOK_TRIGGER == "PR/"* ]] ; then
+         if [[ CODEBUILD_WEBHOOK_TRIGGER == "pr/"* ]] ; then
             export SQ_ANALYSIS_PARAMS="-Dsonar.pullrequest.key=${CODEBUILD_WEBHOOK_TRIGGER##*/} \
-                                       -Dsonar.pullrequest.branch=${CODEBUILD_WEBHOOK_BASE_REF} \
-                                       -Dsonar.pullrequest.base=${CODEBUILD_WEBHOOK_HEAD_REF}"
+                                       -Dsonar.pullrequest.branch=${CODEBUILD_WEBHOOK_HEAD_REF} \
+                                       -Dsonar.pullrequest.base=${CODEBUILD_WEBHOOK_BASE_REF}"
          else
            export SQ_ANALYSIS_PARAMS="-Dsonar.branch.name=${CODEBUILD_WEBHOOK_TRIGGER#branch/}"
          fi
