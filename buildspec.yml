@@ -1,3 +1,9 @@
+# Highlights
+# parameters set correctly when triggered from webhooks (github)
+# secrets not retrieved from AWS (paid feature)
+# targets the main branch and PRs (with failed pipelines for other branches because of codebuild source filters limitations)
+# errors for scanner downloads not managed
+# no cache for analyzers (or the scanner)
 version: 0.2
 env:
   shell: bash
