@@ -1,5 +1,6 @@
 version: 0.2
-# env:
+env:
+  shell: bash
 #  secrets-manager:
 #    SONAR_LOGIN: sonartoken
 #    SONAR_HOSTURL: sonarhost
@@ -14,6 +15,15 @@ phases:
       - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472.zip
       - unzip ./sonar-scanner-cli-4.6.2.2472.zip
       - export PATH=$PATH:$PWD/sonar-scanner-4.6.2.2472/bin/
+      - |-
+         if [[ CODEBUILD_SOURCE_VERSION == "PR/"* ]] ; then
+            SQ_ANALYSIS_PARAMS = "-Dsonar.pullrequest.key=${env.CHANGE_ID}
+            echo "$SQ_ANALYSIS_PARAMS"
+         else
+           echo "$CODEBUILD_SOURCE_VERSION"
+         fi         
+
   build:
     commands:
-      - sonar-scanner -Dsonar.login=$SONAR_LOGIN -Dsonar.host.url=$SONAR_HOST_URL -X
+#      - sonar-scanner -Dsonar.login=$SONAR_LOGIN -Dsonar.host.url=$SONAR_HOST_URL -X
+      - echo "doing nothing"
