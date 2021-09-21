@@ -10,23 +10,26 @@ phases:
       java: corretto11
   pre_build:
     commands:
-      - apt-get update
-      - apt-get install -y jq
-      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472.zip
-      - unzip ./sonar-scanner-cli-4.6.2.2472.zip
-      - export PATH=$PATH:$PWD/sonar-scanner-4.6.2.2472/bin/
+#      - apt-get update
+#      - apt-get install -y jq
+#      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472.zip
+#      - unzip ./sonar-scanner-cli-4.6.2.2472.zip
+#      - export PATH=$PATH:$PWD/sonar-scanner-4.6.2.2472/bin/
+      - echo "CODEBUILD_SOURCE_VERSION ${CODEBUILD_SOURCE_VERSION}"
+      - echo "CODEBUILD_WEBHOOK_TRIGGER ${CODEBUILD_WEBHOOK_TRIGGER}"
+      - echo "CODEBUILD_WEBHOOK_BASE_REF ${CODEBUILD_WEBHOOK_BASE_REF}"
+      - echo "CODEBUILD_WEBHOOK_HEAD_REF ${CODEBUILD_WEBHOOK_HEAD_REF}"
       - |-
-         if [[ CODEBUILD_SOURCE_VERSION == "PR/"* ]] ; then
-            export SQ_ANALYSIS_PARAMS="-Dsonar.pullrequest.key=${CODEBUILD_SOURCE_VERSION}" ${var##*/}
-            echo "${SQ_ANALYSIS_PARAMS}"
+         if [[ CODEBUILD_WEBHOOK_TRIGGER == "PR/"* ]] ; then
+            export SQ_ANALYSIS_PARAMS="-Dsonar.pullrequest.key=${CODEBUILD_WEBHOOK_TRIGGER##*/} \
+                                       -Dsonar.pullrequest.branch=${CODEBUILD_WEBHOOK_BASE_REF} \
+                                       -Dsonar.pullrequest.base=${CODEBUILD_WEBHOOK_HEAD_REF}"
          else
-           export SQ_ANALYSIS_PARAMS="-Dsonar.branch.name=${CODEBUILD_SOURCE_VERSION}"
+           export SQ_ANALYSIS_PARAMS="-Dsonar.branch.name=${CODEBUILD_WEBHOOK_TRIGGER#branch/}"
          fi
 
   build:
     commands:
 #      - sonar-scanner -Dsonar.login=$SONAR_LOGIN -Dsonar.host.url=$SONAR_HOST_URL -X
-      - echo "doing nothing with ${SQ_ANALYSIS_PARAMS}"
-      - echo "CODEBUILD_SOURCE_VERSION ${CODEBUILD_SOURCE_VERSION}"
-      - echo "CODEBUILD_WEBHOOK_TRIGGER ${CODEBUILD_WEBHOOK_TRIGGER}"
-      - echo "CODEBUILD_WEBHOOK_BASE_REF ${CODEBUILD_WEBHOOK_BASE_REF}"
+      - echo "SQ_ANALYSIS_PARAMS -> ${SQ_ANALYSIS_PARAMS}"
+
