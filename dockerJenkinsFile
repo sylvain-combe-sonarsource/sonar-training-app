@@ -2,7 +2,8 @@ pipeline {
     agent {
         docker {
             image 'sonarsource/sonar-scanner-cli:latest'
-            args '-v $HOME/.sonar/cache:/root/.m2:z -v $HOME/.sonar/cache:/opt/sonar-scanner/.sonar/cache:z  -u root'
+            # args '-v $HOME/.sonar/cache:/root/.m2:z -v $HOME/.sonar/cache:/opt/sonar-scanner/.sonar/cache:z  -u root'
+            args '-v sonarcache:/opt/sonar-scanner/.sonar/cache:z  -u root'
             reuseNode true
         }
     }
