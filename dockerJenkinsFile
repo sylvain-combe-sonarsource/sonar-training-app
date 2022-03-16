@@ -13,8 +13,11 @@ pipeline {
         stage('Analysis') {
             steps {
                  withSonarQubeEnv(installationName: 'SQ82') {
-                     sh "${scannerHome}/bin/sonar-scanner"
+                     script {
+                       sh "${scannerHome}/bin/sonar-scanner"
+                     }
                  }
+               }
             }
         }
         stage("Quality Gate") {
