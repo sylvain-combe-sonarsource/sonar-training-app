@@ -14,7 +14,7 @@ pipeline {
             steps {
                  withSonarQubeEnv(installationName: 'SQ82') {
                      script {
-                       sh "echo test"
+                       sh "sonar-scanner -Dsonar.projectKey=github-docker-sonar-training-app -Donar.projectName=github-docker-sonar-training-app"
                      }
                  }
                }
