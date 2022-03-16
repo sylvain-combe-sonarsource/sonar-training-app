@@ -1,0 +1,29 @@
+pipeline {
+    agent {
+        docker {
+            image 'sonarsource/sonar-scanner-cli:latest'
+            args '-v $HOME/.sonar/cache:/root/.m2:z -v $HOME/.sonar/cache:/opt/sonar-scanner/.sonar/cache:z  -u root'
+            reuseNode true
+        }
+    }
+    options {
+        skipStagesAfterUnstable()
+    }
+    stages {
+        stage('Analysis') {
+            steps {
+                 withSonarQubeEnv(installationName: 'SQ82') {
+                     sh "${scannerHome}/bin/sonar-scanner"
+                 }
+            }
+        }
+        stage("Quality Gate") {
+            steps {
+                timeout(time: 5, unit: 'MINUTES') {
+                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
+                    // true = set pipeline to UNSTABLE, false = don't
+                    waitForQualityGate abortPipeline: false
+                }
+            }
+        }
+    }
