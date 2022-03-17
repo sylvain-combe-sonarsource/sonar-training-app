@@ -21,7 +21,7 @@ jobs:
       with:
         sonar.projectName: "github-actions-sonar-training-app"
         sonar.projectKey: "github-actions-sonar-training-app"
-#    Only if pipeline failure is targeted
+#     Only if pipeline failure is targeted
 #    - name: SonarQube Quality Gate check
 #      uses: sonarsource/sonarqube-quality-gate-action@master
 #      # Force to fail step after specific time
