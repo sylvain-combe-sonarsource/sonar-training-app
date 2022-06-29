@@ -18,10 +18,12 @@ jobs:
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        SONAR_SCANNER_OPTS: -Xmx2g
       with:
         args: >
           -Dsonar.projectName=github-actions-sonar-training-app
           -Dsonar.projectKey=github-actions-sonar-training-app
+          -Dsonar.verbose=true
 #     Only if pipeline failure is targeted
 #    - name: SonarQube Quality Gate check
 #      uses: sonarsource/sonarqube-quality-gate-action@master
