@@ -13,3 +13,4 @@ Note the named dependencies in the `Jenkinsfile` for SonarQube, the SonarScanner
 * The file `myserver.js` in the root directory contains a commented-out code block. Uncomment, commit, and on a fresh scan you'll have New Code results including a vulnerability.
 ## again modified
 ## modified
+## changed
