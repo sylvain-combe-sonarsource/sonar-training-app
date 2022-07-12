@@ -18,8 +18,3 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
           SONAR_SCANNER_OPTS: -Djavax.net.debug=all
-        with:
-          args: >
-            -Dsonar.verbose=true
-            -Dsonar.projectKey=krsingh-conga_sonar-training-app_AYHsgmT_Ht2ZX7QRaUMF
-            -Dsonar.projectName=krsingh-conga_sonar-training-app
