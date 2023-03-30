@@ -20,7 +20,7 @@ jobs:
             echo "URL ${CIRCLE_PULL_REQUEST}"
             if [ -z "${CIRCLE_PULL_REQUEST}" ]; then
               echo "Non-PR Build Detected. Running analysis on ${CIRCLE_BRANCH}"
-              sonar-scanner -Dsonar.projectKey=circle-ci-sonar-training-app -Dsonar.projectName=circle-ci-sonar-training-app -Dsonar.organization=<organization> -Dsonar.host.url=https://sonarcloud.io -Dsonar.branch.name=$GITHUB_REF_NAME
+              sonar-scanner -Dsonar.login=${SONAR_TOKEN} -Dsonar.projectKey=circle-ci-sonar-training-app -Dsonar.host.url=https://sonarcloud.io -Dsonar.branch.name=$GITHUB_REF_NAME
               exit 0
             fi
             npm install node-jq --save
@@ -32,7 +32,7 @@ jobs:
             export BASE_BRANCH_URL="https://api.github.com/repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/pulls/${PR_NUM}"
             export TARGET_BRANCH=$(curl "$BASE_BRANCH_URL" | jq '.base.ref' | tr -d '"') 
             echo "Target Branch = ${TARGET_BRANCH}"
-            sonar-scanner -Dsonar.projectKey=circle-ci-sonar-training-app -Dsonar.projectName=circle-ci-sonar-training-app -Dsonar.organization=<organization> -Dsonar.pullrequest.base=${TARGET_BRANCH} -Dsonar.pullrequest.branch=${CIRCLE_BRANCH} -Dsonar.pullrequest.key=${PR_NUM}
+            sonar-scanner -Dsonar.login=${SONAR_TOKEN} -Dsonar.projectKey=circle-ci-sonar-training-app -Dsonar.pullrequest.base=${TARGET_BRANCH} -Dsonar.pullrequest.branch=${CIRCLE_BRANCH} -Dsonar.pullrequest.key=${PR_NUM}
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
