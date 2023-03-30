@@ -25,6 +25,7 @@ jobs:
             fi
             # jq needed to get the target branch name
             node -v
+            sudo apt install npm
             npm install node-jq --save
             echo "PR branch ${CIRCLE_BRANCH}"
             echo "Repo name ${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}"
