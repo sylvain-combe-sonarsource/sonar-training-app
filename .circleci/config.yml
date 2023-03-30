@@ -23,6 +23,7 @@ jobs:
               sonar-scanner -Dsonar.login=${SONAR_TOKEN} -Dsonar.projectKey=circle-ci-sonar-training-app -Dsonar.host.url=https://sonarcloud.io -Dsonar.branch.name=$GITHUB_REF_NAME
               exit 0
             fi
+            # jq needed to get the target branch name
             npm install node-jq --save
             echo "PR branch ${CIRCLE_BRANCH}"
             echo "Repo name ${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}"
