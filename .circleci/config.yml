@@ -25,8 +25,7 @@ jobs:
             fi
             # jq needed to get the target branch name
             node -v
-            apk add --no-cache --virtual build-dependencies npm
-            npm install node-jq --save
+            apk add --no-cache --virtual build-dependencies jq
             echo "PR branch ${CIRCLE_BRANCH}"
             echo "Repo name ${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}"
             echo "URL ${CIRCLE_PULL_REQUEST}"
