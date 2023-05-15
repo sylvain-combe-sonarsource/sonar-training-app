@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('SonarQube analysis') {
       steps {
-        cache(maxCacheSize: 300, defaultBranch: 'main', caches: [ arbitraryFileCache(path: '.sonar', cacheName: 'SQPROD', compressionMethod: 'NONE')
+        cache(maxCacheSize: 300, defaultBranch: 'main', caches: [ arbitraryFileCache(path: '.sonar/cache/', cacheName: 'SQPROD', compressionMethod: 'NONE')
         ]) {
           withSonarQubeEnv('SonarQube') {
             script {
