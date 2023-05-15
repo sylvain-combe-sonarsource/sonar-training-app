@@ -3,6 +3,8 @@ pipeline {
   stages {
     stage('SonarQube analysis') {
       steps {
+        // Does not do more than the scanner itself
+        // TBC: is this cache stored on the Jenkins Server, and not only on build agents?
         cache(maxCacheSize: 300, defaultBranch: 'main', caches: [ arbitraryFileCache(path: '$HOME/.sonar/cache/', cacheName: 'SQPROD', compressionMethod: 'NONE')
         ]) {
           withSonarQubeEnv('SonarQube') {
