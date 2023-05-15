@@ -3,11 +3,15 @@ pipeline {
   stages {
     stage('SonarQube analysis') {
       steps {
-        withSonarQubeEnv('SonarQube') {
-          script {
-            def scannerHome = tool 'SonarScanner';
-            def nodeHome = tool 'NodeJS';
-            sh "${scannerHome}/bin/sonar-scanner -Dsonar.nodejs.executable=${nodeHome}/bin/node -X"
+        cache(maxCacheSize: 300, defaultBranch: 'main', caches: [
+          arbitraryFileCache(path: '.sonar', cacheName: 'SQPROD', compressionMethod: 'TAR')
+        ]) {
+          withSonarQubeEnv('SonarQube') {
+            script {
+              def scannerHome = tool 'SonarScanner';
+              def nodeHome = tool 'NodeJS';
+              sh "${scannerHome}/bin/sonar-scanner -Dsonar.nodejs.executable=${nodeHome}/bin/node -X"
+            }
           }
         }
       }
