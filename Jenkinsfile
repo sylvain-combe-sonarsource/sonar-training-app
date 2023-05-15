@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('SonarQube analysis') {
       steps {
-        cache(maxCacheSize: 300, defaultBranch: 'main', caches: [ arbitraryFileCache(path: '.sonar/cache/', cacheName: 'SQPROD', compressionMethod: 'NONE')
+        cache(maxCacheSize: 300, defaultBranch: 'main', caches: [ arbitraryFileCache(path: '$HOME/.sonar/cache/', cacheName: 'SQPROD', compressionMethod: 'NONE')
         ]) {
           withSonarQubeEnv('SonarQube') {
             script {
@@ -12,9 +12,6 @@ pipeline {
               sh "${scannerHome}/bin/sonar-scanner -Dsonar.nodejs.executable=${nodeHome}/bin/node -X";
               sh "ls -alR $HOME/.sonar/cache"
             }
-          }
-          script {
-            sh "ls -alR ."
           }
         }
       }
