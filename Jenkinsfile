@@ -10,7 +10,7 @@ pipeline {
               def scannerHome = tool 'SonarScanner';
               def nodeHome = tool 'NodeJS';
               sh "${scannerHome}/bin/sonar-scanner -Dsonar.nodejs.executable=${nodeHome}/bin/node -X";
-              sh "ls -alR ."
+              sh "ls -alR $HOME/.sonar/cache"
             }
           }
           script {
