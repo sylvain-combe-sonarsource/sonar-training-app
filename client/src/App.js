@@ -39,6 +39,7 @@
         body: JSON.stringify({ post: this.state.post }),
       });
       const body = await response.text();
+      const ResponseToPost = body;
 
       this.setState({ responseToPost: body });
     };
